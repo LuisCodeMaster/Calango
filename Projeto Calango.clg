@@ -1,0 +1,159 @@
+algoritmo Votacao;
+// Síntese
+//  Objetivo:Determinar uma votação se a presidente continue, a cada estado fazendo perguntando quantidade pessoas votará .
+//  Entrada : quantidade de pessoas, estados;
+//  Saída   : votos válidos, e inválidos
+
+
+principal
+	// Declarações
+	inteiro estados;     //CONSTANTE
+	/*
+	inteiro nroEstados[4],*/inteiro pessoas, contador, opiniao, minimo, contagem[4],  opinioesInvalidas;
+	// Instruções
+	//estados = 3;
+	contador = 0;
+	minimo = 2;
+	opinioesInvalidas = 0;
+	//nroEstados[estados] = 0;
+	contagem[0] = 0; 
+	contagem[1] = 0;
+	contagem[2] = 0;
+
+	escreval("Informe quantos estados participarão desta pesquisa (considerando DF como estado): ");
+	//leia(nroEstados[contador]);
+	leia(estados);
+	estados = validaEstados(minimo, estados);
+	//nroEstados[contador] = validaEstados(minimo, nroEstados);
+	//nroEstados[contador] = validaNumeroEstados(nroEstados);
+	//leEstados(nroEstados);
+
+	para(contador de 0 ate estados - 1 passo 1)faca
+	escreval("Quantas pessoas  do ",contador+1,"° estado responderão essa consulta? ");
+	leia(pessoas);
+	pessoas = validaPessoas(pessoas);
+	//se(pessoas > 0)entao
+	escreval("Escolha uma das opções abaixo para votar: ");
+	menuOpiniao();
+	
+	para(contador de 0 ate pessoas -1 passo 1)faca
+	leia(opiniao);
+	opiniao = validaOpiniao(opiniao,opinioesInvalidas);
+	Contabilizador(contagem, opiniao);
+	fimPara
+	//fimSe
+	fimPara
+	contagem[3] = opinioesInvalidas;
+	limpaTela();
+	mostraResultado(contagem);
+	fimPrincipal
+
+	// Objetivo: Validar o mínimo de estados
+	// Parâmetro : número mínimo de estados
+	// Retorno : número de estados validado
+
+	funcao inteiro validaEstados (inteiro minimo, inteiro estados)
+	//CONSTANTE
+
+	enquanto(estados < minimo)faca
+	escreval("Quantidade de estados não aceita. Devem ter no mínimo 2 estados participando.");
+	escreval("Digite novamente quantos estados paritiparão da pesquisa.");
+	leia(estados);
+	fimEnquanto
+	//nroEstados = validaNumeroEstados(nroEstados);
+
+	enquanto(estados < 1 e estados > 27)faca
+	escreval("Número Inválido! Reescreva um número válido (maior que 1 e menor que 28) : ");
+	leia(estados);
+	fimEnquanto
+	retorna estados;
+	fimFuncao
+	/*
+	procedimento leEstados (inteiro nroEstados[])
+	inteiro estadoNumero;
+	escreval("Informe o número correspondente do seu estado: ");
+	escreval("1- Acre 			15- Paraíba");
+	escreva ("2- Alagoas 			16- Paraná");
+	escreva ("3- Amapá 			17- Pernambuco");
+	escreva ("4- Amazonas 			18- Piauí");
+	escreval("5- Bahia 			19- Rio de Janeiro");
+	escreval("6- Ceará 			20- Rio Grande do Norte");
+	escreval("7- Distrito Federal 			21- Rio Grande do Sul");
+	escreval("8- Espírito Santo 			22- Rondônia");
+	escreval("9- Goiás 			23- Roraima");
+	escreval("10- Maranhão 			24- Santa Catarina");
+	escreval("11- Mato Grosso 			25- São Paulo");
+	escreval("12- Mato Grosso do Sul 			26- Sergipe");
+	escreval("13- Minas Gerais 			27- Tocantins");
+	escreval("14- Pará");
+	leia(nroEstados[estadoNumero]);
+	nroEstados[estadoNumero] = validaNumeroEstados(nroEstados);
+	fimProcedimento
+	*/
+	// Objetivo: Validar o mínimo de participantes da pesquisa
+	// Parâmetro : número mínimo e pessoas
+	// Retorno : número de participantes validado
+
+	funcao inteiro validaPessoas (inteiro pessoas)
+	inteiro minimo;
+	minimo = 2;			//CONSTANTE
+
+	enquanto(pessoas < minimo)faca
+	escreval("Quantidade de pessoas não aceita. Devem ter no mínimo 2 pessoas participando.");
+	escreva("Digite novamente quantas pessoas paritiparão da pesquisa.");
+	leia(pessoas);
+	fimEnquanto
+	retorna (pessoas);
+	fimFuncao 
+
+	// Objetivo: Mostrar o menu de opções de opinião
+	// Parâmetro : Opinião
+	// Retorno: Nenhum.
+
+	procedimento menuOpiniao(/*inteiro opiniao,ref inteiro opinioesInvalidas*/ )
+	escreval("1 - Manter como está.");
+	escreval("2 - Punir a presidente condenada.");
+	escreval("0 - Fazer eleições para presidente novamente.");
+	//leia(opiniao);
+	//opiniao = validaOpiniao(opiniao, opinioesInvalidas);
+	fimProcedimento
+
+	// Objetivo: Validar a opinião da pessoa
+	// Parâmetro : opinião, opniões inválidas.
+	// Retorno : opinião validada.
+	funcao inteiro validaOpiniao (/*inteiro opiniaoValida,*/ inteiro opiniao, ref inteiro opinioesInvalidas)
+
+	enquanto(opiniao != 1 e opiniao != 2 e opiniao != 0)faca
+	opinioesInvalidas = opinioesInvalidas + 1;
+	escreval("Qualquer opção diferente das apresentadas são inválidas. Selecione apenas um dos números a seguir: ");
+	menuOpiniao();
+	leia(opiniao);
+	fimEnquanto
+	retorna opiniao;
+	fimFuncao
+
+	procedimento  Contabilizador(inteiro contagem[], inteiro opniao)
+	se(opniao == 0) entao
+	contagem[0] = contagem[0] + 1;
+	fimSe
+	se(opniao == 1) entao
+	contagem[1] = contagem[1] + 1;
+	fimSe
+	se(opniao == 2) entao
+	contagem[2] = contagem[2] + 1;
+	fimSe
+	fimProcedimento
+	
+	// Objetivo: Mostrar resultados finais
+	// Parâmetro : resultado
+	// Retorno: Nenhum.
+
+	procedimento mostraResultado(inteiro contagem[])
+	inteiro quantidade;
+	escreval("   OPÇÃO	          QUANTIDADES");
+	escreval("=============     ============");
+	para(quantidade de 0 ate 2 passo 1)faca
+	escreval("     ",quantidade,"                 ", contagem[quantidade]);
+	fimPara
+	escreva(" inválida:             ", contagem[3]);
+	fimProcedimento
